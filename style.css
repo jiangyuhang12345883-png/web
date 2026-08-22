@@ -59,8 +59,8 @@ h1 {
 .links {
     display: flex;
     flex-direction: column;
-    gap: 12px;
     align-items: center;
+    gap: 12px;
     margin: 24px 0 30px;
 }
 
