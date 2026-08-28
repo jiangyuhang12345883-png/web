@@ -37,9 +37,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.avatar {
-    font-size: 72px;
-    margin-bottom: 12px;
+.avatar img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 h1 {
