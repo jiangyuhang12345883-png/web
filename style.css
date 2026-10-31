@@ -59,7 +59,6 @@ h1 {
     line-height: 1.8;
 }
 
-/* 赛博传送门样式 */
 .jumper-box {
     display: flex;
     justify-content: center;
@@ -95,7 +94,6 @@ h1 {
     color: #999;
 }
 
-/* ======== 按钮基础形态 ======== */
 .jumper-box button {
     border: none;
     background: #1a1a1a;
@@ -110,10 +108,9 @@ h1 {
     transition: transform 0.15s, background 0.15s; 
 }
 
-/* 我们自定义的按下动画类，由 JS 强行触发 */
 .btn-pressed {
     transform: scale(0.92) !important;
-    transition: none !important; /* 按下瞬间不延迟，直接变 */
+    transition: none !important;
 }
 
 .links {
@@ -160,6 +157,61 @@ h1 {
 
 .footer-note a:hover {
     border-bottom-color: #1a1a1a;
+}
+
+/* 自定义弹窗 */
+.toast {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.toast-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 28px 32px;
+    max-width: 320px;
+    width: calc(100% - 48px);
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    transform: scale(0.9);
+    transition: transform 0.2s;
+}
+
+.toast.show .toast-content {
+    transform: scale(1);
+}
+
+.toast-content p {
+    color: #1a1a1a;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.toast-content button {
+    border: none;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @media (max-width: 480px) {

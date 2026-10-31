@@ -65,16 +65,34 @@ function animate() {
 animate();
 
 // ==========================================
-// 赛博传送门 (含 XSS 制裁与 JS 强制物理动画)
+// 自定义弹窗
+// ==========================================
+const toast = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+const toastBtn = document.getElementById('toastBtn');
+
+function showToast(msg) {
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+}
+
+toastBtn.addEventListener('click', () => {
+    toast.classList.remove('show');
+});
+
+toast.addEventListener('click', (e) => {
+    if (e.target === toast) toast.classList.remove('show');
+});
+
+// ==========================================
+// 赛博传送门
 // ==========================================
 const jumpBtn = document.getElementById('jumpBtn');
 
-// 【物理外挂】监听手指按下，强行加上动画类，100%触发！
 jumpBtn.addEventListener('touchstart', function(e) {
     this.classList.add('btn-pressed');
 }, { passive: true });
 
-// 【物理外挂】监听手指抬起或滑走，强行移除动画类
 jumpBtn.addEventListener('touchend', function(e) {
     this.classList.remove('btn-pressed');
 }, { passive: true });
@@ -82,15 +100,14 @@ jumpBtn.addEventListener('touchcancel', function(e) {
     this.classList.remove('btn-pressed');
 }, { passive: true });
 
-// 核心点击逻辑
 jumpBtn.addEventListener('click', function(e) {
     this.blur(); 
-    this.classList.remove('btn-pressed'); // 防止偶尔卡住
+    this.classList.remove('btn-pressed');
 
     let url = document.getElementById('targetUrl').value.trim();
     
     if (url === '') {
-        alert('你连个网址都不输，我怎么带你飞？');
+        showToast('你连个网址都不输，我怎么带你飞？');
         return;
     }
 
@@ -100,13 +117,13 @@ jumpBtn.addEventListener('click', function(e) {
         lowerUrl.startsWith('data:') || 
         lowerUrl.startsWith('vbscript:')) {
         
-        alert('想黑我的白子？接受制裁吧！');
-        window.location.href = 'Never.mp4'; 
+        showToast('想黑我的白子？接受制裁吧！');
+        setTimeout(() => { window.location.href = 'Never.mp4'; }, 1000);
         return;
     }
 
     if (lowerUrl.startsWith('http://')) {
-        alert('什么年代了还在用 HTTP 明文裸奔？老子不支持！');
+        showToast('什么年代了还在用 HTTP 明文裸奔？老子不支持！');
         return; 
     }
 
@@ -116,14 +133,13 @@ jumpBtn.addEventListener('click', function(e) {
     }
 
     if (!/^https:\/\//i.test(finalUrl)) {
-        window.location.href = 'Never.mp4';
+        setTimeout(() => { window.location.href = 'Never.mp4'; }, 1000);
         return;
     }
 
     window.open(finalUrl, '_blank', 'noopener,noreferrer');
 });
 
-// 回车键触发
 document.getElementById('targetUrl').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         e.preventDefault(); 
